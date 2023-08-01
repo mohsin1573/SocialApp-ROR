@@ -1,0 +1,16 @@
+<!-- app/views/posts/edit.html.erb -->
+<h1>Edit Post</h1>
+
+<%= form_with(model: @post, local: true) do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.label :description %>
+  <%= form.text_area :description %>
+
+  <!-- Add input fields for other post attributes if needed -->
+
+  <%= form.submit "Update Post" %>
+<% end %>
+
+<%= link_to "Back to Post Details", post_path(@post) %>
