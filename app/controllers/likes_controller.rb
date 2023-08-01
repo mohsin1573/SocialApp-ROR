@@ -1,5 +1,5 @@
 class LikesController < ApplicationController
-    before_action :authentication_user!, except: [:like, :unlike]
+    before_action :authenticate_user!, except: [:like, :unlike]
 
     def create 
         @post = Post.find(params[:post_id])
@@ -13,7 +13,7 @@ class LikesController < ApplicationController
     end
 
     def destroy
-        @post =  Post.find(params[:post_id])
+        @post =  Post.find(params[:id])
         @Like = current_user.likes.find_by(post: @post)
 
         if @Like

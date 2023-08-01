@@ -8,10 +8,10 @@
 <% end %>
 
 <% if user_signed_in? %>
- <% if current_user.likes.exists?(post: @post) %>
-    <%= button_to "Unlike", post_likes_path(@post), method: :delete %>
+  <% if current_user.likes.exists?(post: @post) %>
+    <%= button_to "Unlike", like_path, method: :delete, params: { post_id: @post.id } %>
   <% else %>
-    <%= button_to "Like", post_likes_path(@post), method: :post %>
+    <%= button_to "Like", likes_path, method: :post, params: { post_id: @post.id } %>
   <% end %>
 <% end %>
 <!-- Display other post details here, if needed -->
