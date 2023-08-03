@@ -6,6 +6,9 @@
 <% else %>
   <p>No image attached.</p>
 <% end %>
+<br>
+<strong>Comments:</strong>
+<%= render @post.comments%>
 
 <% if user_signed_in? %>
   <% if current_user.likes.exists?(post: @post) %>
@@ -15,6 +18,7 @@
   <% end %>
 <% end %>
 <!-- Display other post details here, if needed -->
-
-<%= link_to "Edit", edit_post_path(@post) %>
+ <% if can? :update, @post %>
+    <%= link_to "Edit", edit_post_path(@post) %>
+<%end%>
 <%= link_to "Back", posts_path %>
