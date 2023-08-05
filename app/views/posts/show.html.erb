@@ -8,7 +8,8 @@
 <% end %>
 <br>
 <strong>Comments:</strong>
-<%= render @post.comments%>
+<%= render @post.comments.order(id: :desc)%>
+<%= render partial: 'comments/form', locals:{post: @post}%>
 
 <% if user_signed_in? %>
   <% if current_user.likes.exists?(post: @post) %>
