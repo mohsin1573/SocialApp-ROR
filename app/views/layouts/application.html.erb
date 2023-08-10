@@ -8,11 +8,75 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
   </head>
 
   <body>
-   <p class="notice"><%= notice %></p> 
-   <p class="alert"><%= alert %></p> 
+  <%# Navigation Bar %>
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand text-light" href="#">Unity Hub</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light disabled" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+            <% if user_signed_in? %>
+              <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-light" %>
+
+            <% else %>
+              <a href="<%= new_user_session_path %>" class="btn btn-outline-light">Sign In</a>
+            <% end %>
+          </div>
+        </div>
+     </nav>
+
+
+<%# Alerts %>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <% if notice.present? %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <%= notice %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% end %>
+
+          <% if alert.present? %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <%= alert %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+ 
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <%= yield %>
   </body>
 </html>

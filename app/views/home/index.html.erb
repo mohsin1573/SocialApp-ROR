@@ -5,12 +5,17 @@
 </head>
 <body>
 <% if user_signed_in? %> 
- <div> Welcome <%= current_user.email %> </div> 
-  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
-  <%= link_to "All Posts", posts_path %> | <%= link_to "Create New Post", new_post_path%>
-  <%= link_to 'Edit Profile', edit_user_registration_path %>
-<% else %>
-  <%= button_to "Sign in", new_user_session_path %> 
+  <div class="alert alert-success alert-dismissible fade show text-center mx-auto" role="alert" style="max-width: 400px;">
+    Welcome <%= current_user.username %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <%# <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+  <%# <%= link_to "All Posts", posts_path | <%= link_to "Create New Post", new_post_path%> 
+  <%# <%= link_to 'Edit Profile', edit_user_registration_path %>
+  <%# <% else %> 
+    <%# <%= button_to "Sign in", new_user_session_path  %>  
+
 <% end %>
 
 
