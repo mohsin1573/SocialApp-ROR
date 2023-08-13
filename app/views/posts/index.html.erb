@@ -1,13 +1,16 @@
 <!-- app/views/posts/index.html.erb -->
-<h1>All Posts</h1>
-<ul>
-  <% @posts.each do |post| %>
-    <li>
-      <%= link_to post.name, post %>
-      
-      <!-- Display other post details here, if needed -->
-    </li>
-  <% end %>
-</ul>
+<div class="container mt-5">
+  <h1>All Posts</h1>
+  <ul class="list-group mt-3">
+    <% @posts.each do |post| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <%= link_to "#{post.name}", post, class: "text-dark" %>
+        <span class="text-secondary">Post created by: <%= post.user.username %></span>
+      </li>
+    <% end %>
+  </ul>
 
-<%= link_to "New Post", new_post_path %>
+  <div class="mt-4">
+    <%= link_to "New Post", new_post_path, class: "btn btn-primary" %>
+  </div>
+</div>

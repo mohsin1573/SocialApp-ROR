@@ -1,27 +1,27 @@
 <!-- app/views/comments/_comment.html.erb -->
-<div class="comment">
-<article>
-  <p><%= comment.content %></p>
-  <small>by <%= comment.user.email%></small>
+<div class="comment card mb-3">
+  <article class="card-body">
+    <p class="card-text"><%= comment.content %></p>
+    <small class="text-muted">by <%= comment.user.username %></small>
 
-<a href='#' class="comment-form-display">reply</a>
-<div class='comment-form'>
-  <%= render partial: 'comments/form', locals: {post: comment.post, parent: comment}%>
-  </div>
-  <hr/>
-  
-  <div class="sub-comment">
-        <%= render comment.comments.order(id: :desc)%>
-  </div>
-  <!-- Additional content and formatting for each comment -->
+    <a href='#' class="comment-form-display mt-2 d-block">Reply</a>
+    <div class='comment-form mt-2' style="display: none;">
+      <%= render partial: 'comments/form', locals: { post: comment.post, parent: comment } %>
+    </div>
+    <hr class="mt-2">
+
+    <div class="sub-comment mt-3">
+      <%= render comment.comments.order(id: :desc) %>
+    </div>
+    <!-- Additional content and formatting for each comment -->
+  </article>
 </div>
-</article>
 
 <script>
-  document.querySelectorAll('.comment-form-display').forEach((el)=>{
-  el.addEventListener('click',(ev)=>{
-  ev.preventDefault();
-  el.nextElementSibling.style = 'display: block;'
-  })
-  })
+  document.querySelectorAll('.comment-form-display').forEach((el) => {
+    el.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      el.nextElementSibling.style.display = 'block';
+    });
+  });
 </script>

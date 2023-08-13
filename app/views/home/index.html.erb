@@ -2,29 +2,127 @@
 <html>
 <head>
   <title>Welcome to My App</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+     .post-card {
+      max-width: 300px;
+      margin: 10px;
+     }
+
+      .carousel-img {
+        max-height: 650px;
+        margin: 0 auto; 
+      }
+
+      .post-card .card-body {
+        height: 150px; /* Adjust this value to your desired height */
+        overflow: hidden;
+       }
+  </style>
 </head>
 <body>
+
 <% if user_signed_in? %> 
   <div class="alert alert-success alert-dismissible fade show text-center mx-auto" role="alert" style="max-width: 400px;">
     Welcome <%= current_user.username %>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
-
-  <%# <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
-  <%# <%= link_to "All Posts", posts_path | <%= link_to "Create New Post", new_post_path%> 
-  <%# <%= link_to 'Edit Profile', edit_user_registration_path %>
-  <%# <% else %> 
-    <%# <%= button_to "Sign in", new_user_session_path  %>  
-
 <% end %>
 
 
-  <h1>Welcome to My App</h1>
- <% @posts.each do |post| %>
-    <%= post.name%> <br>
-    <%= post.description%><br>
-    <%= image_tag post.image%><br>
-    <br><br>
-  <%end%>
+<div id="carouselExampleFade" class="carousel slide carousel-fade">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <%= image_tag 'https://www.searchenginejournal.com/wp-content/uploads/2021/09/16-reasons-why-social-media-is-important-to-your-company-616d3200e6dc6-sej-760x400.webp', class: "d-block w-100 carousel-img" %>
+    </div>
+    <div class="carousel-item">
+      <%= image_tag 'https://thumbor.forbes.com/thumbor/fit-in/1290x/https://www.forbes.com/advisor/wp-content/uploads/2023/05/Social_Media_Statistics_-_article_image.jpg', class: "d-block w-100 carousel-img" %>
+    </div>
+    <div class="carousel-item">
+     <%= image_tag 'https://api.backlinko.com/app/uploads/2020/08/social-media-users-post-banner-960x502.webp', class: "d-block w-100 carousel-img" %>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+
+
+
+<!-- Display Posts in Cards -->
+<<div class="container mt-5">
+  <div class="text-center">
+    <% if @posts.any? %>
+      <h1>All Posts</h1>
+      <div class="row">
+        <!-- Display Posts in Cards -->
+        <% @posts.each do |post| %>
+          <div class="col-md-4">
+            <div class="card post-card">
+              <div class="ratio ratio-4x3">
+                <%= image_tag post.image, class: "card-img-top img-fluid" %>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><%= post.name %></h5>
+                <p class="card-text"><%= post.description %></p>
+                <% if user_signed_in? %>
+                  <%= button_to "Like", likes_path, method: :post, params: { post_id: post.id }, class: "btn btn-primary" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="mb-4">Sorry, No Posts to Display.</p>
+      <!-- Create Post Button -->
+    <a href="<%= new_post_path %>" class="btn btn-lg btn-primary">Create a Post</a>
+    <% end %>
+    
+  </div>
+</div>
+
+<footer class="bg-dark text-light py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Contact Us</h5>
+        <p>If you need any assistance, feel free to reach out to our support team:</p>
+        <p><strong>Email:</strong> support@example.com</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="/" class="text-light">Home</a></li>
+          <li><a href="/contact" class="text-light">Contact Us</a></li>
+          <li><a href="/about" class="text-light">About Us</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Subscribe to Newsletter</h5>
+        <form action="#" method="post" class="mb-3">
+          <div class="input-group">
+            <input type="email" class="form-control" placeholder="Enter your email" required>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </div>
+        </form>
+        <p>Stay up to date with our latest news and offers.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+<!-- Include Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

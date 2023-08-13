@@ -14,44 +14,46 @@
 
   <body>
   <%# Navigation Bar %>
-    <nav class="navbar navbar-expand-lg bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand text-light" href="#">Unity Hub</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light disabled" aria-disabled="true">Disabled</a>
-              </li>
-            </ul>
-            <% if user_signed_in? %>
-              <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-light" %>
-
-            <% else %>
-              <a href="<%= new_user_session_path %>" class="btn btn-outline-light">Sign In</a>
-            <% end %>
-          </div>
-        </div>
-     </nav>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">SOCIAL APP</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="<%= root_path %>">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            POSTS
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="<%= posts_path%>">ALL POSTS</a></li>
+            <li><a class="dropdown-item" href="<%= new_post_path%>">NEW POST</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">AboutUS</a>
+        </li>
+      </ul>
+      <% if user_signed_in? %>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="<%= edit_user_registration_path%>">Edit Profile</a>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-outline-light" %>
+          </li>
+        </ul>
+      <% else %>
+        <a href="<%= new_user_session_path %>" class="btn btn-outline-light">Sign In</a> |
+        <a href="<%= new_user_registration_path %>" class="btn btn-outline-light">Register your Account</a>
+      <% end %>
+    </div>
+  </div>
+</nav>
 
 
 <%# Alerts %>
@@ -74,9 +76,12 @@
         </div>
       </div>
     </div>
-
- 
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+   
     <%= yield %>
+
+    
+
+
+
   </body>
 </html>
