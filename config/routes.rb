@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   
   resources :likes, only: [:create, :destroy]
   devise_for :users
+  get 'videos/search'
   root 'home#index'
   
 end
