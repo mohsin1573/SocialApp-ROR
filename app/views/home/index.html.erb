@@ -4,6 +4,7 @@
   <title>Welcome to My App</title>
   
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <style>
      .post-card {
       max-width: 300px;
@@ -16,21 +17,14 @@
       }
 
       .post-card .card-body {
-        height: 150px; /* Adjust this value to your desired height */
+        height: 150px; 
         overflow: hidden;
        }
   </style>
 </head>
-<body>
+<body style="background-color: #f8f9fa;">
 
-<% if user_signed_in? %> 
-  <div class="alert alert-success alert-dismissible fade show text-center mx-auto" role="alert" style="max-width: 400px;">
-    Welcome <%= current_user.username %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% end %>
-
-
+<%# Banner Images %>
 <div id="carouselExampleFade" class="carousel slide carousel-fade">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -55,41 +49,49 @@
 
 
 
-
-
-<!-- Display Posts in Cards -->
-<<div class="container mt-5">
-  <div class="text-center">
-    <% if @posts.any? %>
-      <h1>All Posts</h1>
-      <div class="row">
-        <!-- Display Posts in Cards -->
-        <% @posts.each do |post| %>
-          <div class="col-md-4">
-            <div class="card post-card">
-              <div class="ratio ratio-4x3">
-                <%= image_tag post.image, class: "card-img-top img-fluid" %>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title"><%= post.name %></h5>
-                <p class="card-text"><%= post.description %></p>
-                <% if user_signed_in? %>
-                  <%= button_to "Like", likes_path, method: :post, params: { post_id: post.id }, class: "btn btn-primary" %>
-                <% end %>
-              </div>
+<%# Users Posts Slider %>
+<div class="container">
+  <% @users.each do |user| %>
+    <div class="carousel slide mt-5" data-bs-ride="carousel" data-bs-interval="2000"> 
+      <div class="carousel-inner">
+       <h2 class="text-center">Posts by <%= user.username %></h2>
+        <% user.posts.each_slice(3) do |posts| %>
+          <div class="carousel-item <%= posts == user.posts.first(3) ? 'active' : '' %>">
+            <div class="row justify-content-center">
+              <% posts.each do |post| %>
+                <div class="col-md-4">
+                  <div class="card post-card">
+                    <div class="ratio ratio-4x3">
+                      <%= image_tag post.image, class: "card-img-top img-fluid" %>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title"><%= post.name %></h5>
+                      <p class="card-text"><%= post.description %></p>
+                      <% if user_signed_in? %>
+                        <%= button_to "Like", likes_path, method: :post, params: { post_id: post.id }, class: "btn btn-primary" %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
             </div>
           </div>
         <% end %>
       </div>
-    <% else %>
-      <p class="mb-4">Sorry, No Posts to Display.</p>
-      <!-- Create Post Button -->
-    <a href="<%= new_post_path %>" class="btn btn-lg btn-primary">Create a Post</a>
-    <% end %>
-    
-  </div>
+      <a class="carousel-control-prev" href="#<%= "userPostsSlider#{user.id}" %>" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#<%= "userPostsSlider#{user.id}" %>" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </a>
+    </div>
+  <% end %>
 </div>
 
+
+<%# FOOTER %>
 <footer class="bg-dark text-light py-4">
   <div class="container">
     <div class="row">
@@ -101,9 +103,9 @@
       <div class="col-md-4">
         <h5>Quick Links</h5>
         <ul class="list-unstyled">
-          <li><a href="/" class="text-light">Home</a></li>
-          <li><a href="/contact" class="text-light">Contact Us</a></li>
-          <li><a href="/about" class="text-light">About Us</a></li>
+          <li><a href="#" class="text-light">Home</a></li>
+          <li><a href="#" class="text-light">Contact Us</a></li>
+          <li><a href="#" class="text-light">About Us</a></li>
         </ul>
       </div>
       <div class="col-md-4">

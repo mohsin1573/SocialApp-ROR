@@ -5,7 +5,7 @@
     <% if !parent.nil? %>
       <input type="hidden" name="comment[parent_id]" value="<%= parent.id %>">
     <% end %>
-
+  
     <div class="mb-3">
       <label class="form-label">Add a Comment</label>
       <textarea name="comment[content]" class="form-control" rows="3" cols="20" style="resize: vertical;"></textarea>

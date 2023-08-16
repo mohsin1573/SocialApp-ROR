@@ -2,10 +2,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   # Association with posts
-  has_many :posts   
+  has_many :posts, dependent: :destroy   
   
   has_many :likes, dependent: :destroy
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   def likes?(post)
     likes.exists?(post_id: post.id)

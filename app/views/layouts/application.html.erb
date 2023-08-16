@@ -9,12 +9,40 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   </head>
+ <style>
+    body {
+      background-color: #f8f9fa;
+    }
 
+    .card {
+      border: none;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      background-color: #343a40;
+      color: #ffffff;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+  </style>
   <body>
+  
+   
   <%# Navigation Bar %>
-   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <nav class="navbar navbar-expand-lg navbar-dark bg-primary py-3">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">SOCIAL APP</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,36 +53,43 @@
         <li class="nav-item">
           <a class="nav-link" href="<%= root_path %>">Home</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            POSTS
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<%= posts_path%>">ALL POSTS</a></li>
-            <li><a class="dropdown-item" href="<%= new_post_path%>">NEW POST</a></li>
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= posts_path %>">All Posts</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">AboutUS</a>
+          <a class="nav-link" href="<%= new_post_path %>">Create Post</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About Us</a>
         </li>
       </ul>
       <% if user_signed_in? %>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="<%= edit_user_registration_path%>">Edit Profile</a>
+            <a class="nav-link" href="<%= edit_user_registration_path %>">
+              <i class="bi bi-person-fill me-1"></i>
+              Edit Profile
+            </a>
           </li>
           <li class="nav-item">
             <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-outline-light" %>
           </li>
         </ul>
       <% else %>
-        <a href="<%= new_user_session_path %>" class="btn btn-outline-light">Sign In</a> |
-        <a href="<%= new_user_registration_path %>" class="btn btn-outline-light">Register your Account</a>
+        <div class="d-flex">
+          <a href="<%= new_user_session_path %>" class="btn btn-outline-light me-2">
+            <i class="bi bi-box-arrow-in-right"></i>
+            Sign In
+          </a>
+          <a href="<%= new_user_registration_path %>" class="btn btn-outline-light">
+            <i class="bi bi-person-plus-fill me-1"></i>
+            Register
+          </a>
+        </div>
       <% end %>
     </div>
   </div>
 </nav>
-
 
 <%# Alerts %>
     <div class="container">
@@ -75,11 +110,11 @@
           <% end %>
         </div>
       </div>
-    </div>
-   
+    </div>    
+
     <%= yield %>
 
-    
+
 
 
 
