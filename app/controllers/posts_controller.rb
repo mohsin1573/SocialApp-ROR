@@ -6,7 +6,7 @@ class PostsController < ApplicationController
     def index
         @posts = Post.all
     end
-
+    
     def show
         @post = Post.find(params[:id])
     end
@@ -28,6 +28,15 @@ class PostsController < ApplicationController
     def edit
     end
 
+    def destroy
+        @post.destroy
+        respond_to do |format|
+                format.turbo_stream { render turbo_stream: turbo_stream.remove("post_row_#{@post.id}") } 
+                format.html{redirect_to posts_url, notice: 'Post was Successfully Deleted'}
+                format.json{head :no_content}
+        end
+    end
+
     def update
         if @post.update(post_params)
             redirect_to @post, notice: 'Post was Successfully Updated'
@@ -35,13 +44,9 @@ class PostsController < ApplicationController
             render :edit
         end
     end
+      
 
-    def destroy
-        @post.comments.destroy_all
-
-        @post.destroy
-        redirect_to posts_url, notice: 'Post was successfully destroyed.'
-    end
+      
 
     private
 

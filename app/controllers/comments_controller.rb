@@ -13,7 +13,12 @@ class CommentsController < ApplicationController
     def destroy
         @comment = Comment.find(params[:id])
         @comment.destroy
-        redirect_back(fallback_location: root_path)
+        respond_to do |format|
+            format.turbo_stream{render turbo_stream: turbo_stream.remove("comment_row_#{@comment.id}")}
+            format.html { redirect_back(fallback_location: root_path)}
+            format.json { head :no_content }
+        end
+        
     end
     
     
